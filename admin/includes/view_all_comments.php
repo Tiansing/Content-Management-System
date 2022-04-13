@@ -45,9 +45,9 @@
             }
 
             echo "<td>$comment_date</td>";
-            echo "<td><a href='./posts.php?source=edit_post&p_edit={}'>Approve</td>";
-            echo "<td><a href='./posts.php?source=edit_post&p_edit={}'>Unapprove</td>";
-            echo "<td><a href='./posts.php?delete={}'>Delete</td>";
+            echo "<td><a href='./comments.php?approve={$comment_id}'>Approve</td>";
+            echo "<td><a href='./comments.php?unapprove={$comment_id}'>Unapprove</td>";
+            echo "<td><a href='./comments.php?delete={$comment_id}'>Delete</td>";
             echo "</tr>";
         }
 
@@ -59,12 +59,29 @@
 
 <?php
 
-if (isset($_GET['delete'])) {
-    $delete_post_id = $_GET['delete'];
-    $query = "DELETE FROM posts WHERE post_id = {$delete_post_id}";
-    $delete_post_query = mysqli_query($connection, $query);
+if (isset($_GET['approve'])) {
 
-    verifyQry($delete_post_id);
+    $approved_comment_id = $_GET['approve'];
+    $query = "UPDATE comments SET comment_status='Approved' WHERE comment_id = {$approved_comment_id}";
+    $approved_comment_query = mysqli_query($connection, $query);
+    header("Location: comments.php");
+    verifyQry($approved_comment_query);
+}
+
+if (isset($_GET['unapprove'])) {
+    $unapprove_comment_id = $_GET['unapprove'];
+    $query = "UPDATE comments SET comment_status = 'Unapproved' WHERE comment_id = {$unapprove_comment_id}";
+    $unapproved_comment_query = mysqli_query($connection, $query);
+    header("Location: comments.php");
+    verifyQry($unapproved_comment_query);
+}
+
+if (isset($_GET['delete'])) {
+    $delete_comment_id = $_GET['delete'];
+    $query = "DELETE FROM comments WHERE comment_id = {$delete_comment_id}";
+    $comment_id_query = mysqli_query($connection, $query);
+    header("Location: comments.php");
+    verifyQry($comment_id_query);
 }
 
 ?>
