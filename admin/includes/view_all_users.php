@@ -8,6 +8,9 @@
             <th>Email</th>
             <th>User Role</th>
             <th>Image</th>
+            <th>Admin</th>
+            <th>Subscriber</th>
+            <th>Edit</th>
             <th>Delete</th>
 
 
@@ -47,9 +50,12 @@
 
             echo "<td>$user_email</td>";
             echo "<td>$user_role</td>";
-            echo "<td> <img src = '../images/' width='100' alt = 'image'></td>";
-            // echo "<td><a href='./posts.php?source=edit_post&p_edit={$post_id}'>Edit</td>";
-            echo "<td><a href='./users.php?delete={}'>Delete</td>";
+            echo "<td> <img src = '../images/users_img/$user_image' height='50' alt = 'image'></td>";
+            echo "<td><a href = './users.php?change_to_admin={$user_id}'>admin</a></td>";
+            echo "<td><a href = './users.php?change_to_sub={$user_id}'>subscriber</a></td>";
+            echo "<td><a href = './users.php?source=edit_user&edit_user={$user_id}'>Edit</a></td>";
+            echo "<td><a href='./users.php?delete={$user_id}'>Delete</td>";
+
             echo "</tr>";
         }
 
@@ -60,13 +66,36 @@
 
 
 <?php
+if (isset($_GET['change_to_admin'])) {
+    $set_to_admin = $_GET['change_to_admin'];
+
+    $query = "UPDATE users SET ";
+    $query .= "user_role ='admin' ";
+    $query .= "WHERE user_id = {$set_to_admin}";
+    $set_admin_query = mysqli_query($connection, $query);
+    header("Location:users.php");
+    verifyQry($set_admin_query);
+}
+
+if (isset($_GET['change_to_sub'])) {
+    $set_to_sub = $_GET['change_to_sub'];
+
+    $query = "UPDATE users SET ";
+    $query .= "user_role ='subscriber' ";
+    $query .= "WHERE user_id = {$set_to_sub}";
+    $set_admin_query = mysqli_query($connection, $query);
+    header("Location:users.php");
+    verifyQry($set_admin_query);
+}
 
 if (isset($_GET['delete'])) {
-    $delete_post_id = $_GET['delete'];
-    $query = "DELETE FROM posts WHERE post_id = {$delete_post_id}";
-    $delete_post_query = mysqli_query($connection, $query);
-    header("Location: posts.php");
-    verifyQry($delete_post_id);
+
+    $delete_user_id = $_GET['delete'];
+
+    $query = "DELETE FROM users WHERE user_id = {$delete_user_id}";
+    $delete_user_query = mysqli_query($connection, $query);
+    header("Location: users.php");
+    verifyQry($delete_user_query);
 }
 
 ?>
