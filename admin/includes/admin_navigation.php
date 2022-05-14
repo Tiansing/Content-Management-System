@@ -14,7 +14,9 @@
 
         <li class="dropdown">
             <a href="../index.php">HOME</a>
+
         </li>
+        <li class="dropdown"><a href="../includes/logout.php">LOGOUT</a></li>
     </ul>
     <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -52,7 +54,7 @@
             </li>
 
             <li>
-                <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i>Profile</a>
+                <a href="profile.php"><i class="fa fa-fw fa-dashboard"></i>Profile</a>
             </li>
         </ul>
     </div>
