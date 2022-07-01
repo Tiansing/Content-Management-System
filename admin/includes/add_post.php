@@ -22,6 +22,8 @@ if (isset($_POST['create_post'])) {
     $create_post_query = mysqli_query($connection, $query);
 
     verifyQry($create_post_query);
+
+    echo "<h2 class='bg-success fixed-top'>Post Successfully Added!</h2>";
 }
 
 
@@ -56,12 +58,12 @@ if (isset($_POST['create_post'])) {
 
     <div class="form-group">
         <label for="title">Post Author</label>
-        <input type="text" class="form-control" name="author">
+        <input type="text" class="form-control" name="author" required>
     </div>
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input type="text" class="form-control" name="post_status">
+        <input type="text" class="form-control" name="post_status" required>
     </div>
 
 
@@ -73,16 +75,16 @@ if (isset($_POST['create_post'])) {
 
     <div class="form-group">
         <label for="post_tags">Post Tags</label>
-        <input type="text" class="form-control" name="post_tags">
+        <input type="text" class="form-control" name="post_tags" required>
     </div>
 
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea class="form-control" name="post_content" id="" cols="30" rows="10"></textarea>
+        <textarea class="form-control" name="post_content" id="body" cols="30" rows="10" required></textarea>
     </div>
 
     <div class="form-group">
-        <input type="submit" class="btn btn-primary" name="create_post" value="Publish Post">
+        <input type="submit" class="btn btn-primary" name="create_post" value="Publish Post" required>
     </div>
 
 </form>

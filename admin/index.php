@@ -146,6 +146,10 @@
             $select_all_subscribers = mysqli_query($connection, $query);
             $subscriber_count = mysqli_num_rows($select_all_subscribers);
 
+            $query = "SELECT * FROM posts WHERE post_status = 'published'";
+            $select_all_published_post = mysqli_query($connection, $query);
+            $published_post_count = mysqli_num_rows($select_all_published_post);
+
             ?>
 
             <!-- /.row -->
@@ -160,8 +164,8 @@
                         var data = google.visualization.arrayToDataTable([
                             ['Data', 'Count'],
                             <?php
-                            $element_text = ["Active Posts", "Comments", "Users", "Subscribers", "Categories"];
-                            $element_count = [$posts_count, $comment_count, $users_count, $subscriber_count, $category_count];
+                            $element_text = ["All Posts", "Published Posts", "Comments", "Users", "Subscribers", "Categories"];
+                            $element_count = [$posts_count, $published_post_count, $comment_count, $users_count, $subscriber_count, $category_count];
 
                             for ($i = 0; $i < 5; $i++) {
                                 echo "['{$element_text[$i]}'" . "," . "{$element_count[$i]}],";

@@ -20,7 +20,7 @@ if (isset($_POST['create_user'])) {
     verifyQry($create_user_query);
 }
 
-
+echo "<h1>USER HAS BEEN CREATED: " . "<a href = 'users.php'>View all users</a></h1>";
 
 ?>
 

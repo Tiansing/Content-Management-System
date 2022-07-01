@@ -27,16 +27,17 @@
                 <li>
                     <a href="admin">Admin</a>
                 </li>
+                <?php
+                if (isset($_SESSION['user_role'])) {
 
-                <!-- <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li> -->
+                    if (isset($_GET['p_id'])) {
+                        $the_post_id = $_GET['p_id'];
+                        echo "<li ><a class ='btn btn-primary' href ='admin/posts.php?source=edit_post&p_edit={$the_post_id}'>Edit Post</a></li>";
+                    }
+                }
+                ?>
+
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
