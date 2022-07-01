@@ -14,6 +14,16 @@ if (isset($_POST['checkBoxArray'])) {
                 $publish_post_query = mysqli_query($connection, $query);
 
                 break;
+            case "draft":
+                $query = "UPDATE posts SET post_status = '{$bulk_option}' WHERE post_id = {$postValueId} ";
+                $publish_post_query = mysqli_query($connection, $query);
+
+                break;
+            case "delete":
+                $query = "DELETE FROM posts WHERE post_id = {$postValueId} ";
+                $publish_post_query = mysqli_query($connection, $query);
+
+                break;
         }
     }
 }
@@ -35,10 +45,10 @@ if (isset($_POST['checkBoxArray'])) {
         </div>
         <div class="form-group">
             <input class="btn btn-success" type="submit" value="Apply Changes">
-            <a class="btn btn-primary" href="./post.php?source=add_post">Add Post</a>
+            <a class="btn btn-primary" href="./posts.php?source=add_post">Add Post</a>
         </div>
         <tr>
-            <th><input type="checkbox" id="checkBoxSelectAll" name=""></th>
+            <th><input id="checkBoxSelectAll" type="checkbox"></th>
             <th>ID</th>
             <th>Author</th>
             <th>Title</th>
@@ -72,11 +82,11 @@ if (isset($_POST['checkBoxArray'])) {
 
                 echo "<tr>";
             ?>
-                <td><input type="checkBox" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
+                <td><input class="checkBoxes" type="checkBox" name="checkBoxArray[]" value="<?php echo $post_id; ?>"></td>
             <?php
-                echo "<td>$post_id</td>";
+                echo "<td>$post_id</a></td>";
                 echo "<td>$post_author</td>";
-                echo "<td>$post_title</td>";
+                echo "<td><a href='../post.php?p_id={$post_id}'>$post_title</a></td>";
 
 
                 $query = "SELECT * FROM categories WHERE cat_id = $post_category";
