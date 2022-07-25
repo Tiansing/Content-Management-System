@@ -35,11 +35,19 @@ if (isset($_POST['update_user'])) {
             $user_image = $row['user_image'];
         }
     }
+    $query = "SELECT randSalt FROM users";
+    $select_randSalt_query = mysqli_query($connection, $query);
 
-    $query = "UPDATE users SET username='{$username}', user_role = '{$user_role}',user_firstname='{$user_firstname}',user_lastname='{$user_lastname}',user_email='{$user_email}',user_password='{$user_password}',user_image='{$user_image}' WHERE user_id = $edit_user_id";
+    while ($row = mysqli_fetch_assoc($select_randSalt_query)) {
+        $asin = $row['randSalt'];
+    }
+    $hashed_password = crypt($user_password, $asin);
+
+
+    $query = "UPDATE users SET username='{$username}', user_role = '{$user_role}',user_firstname='{$user_firstname}',user_lastname='{$user_lastname}',user_email='{$user_email}',user_password='{$hashed_password}',user_image='{$user_image}' WHERE user_id = $edit_user_id";
 
     $update_user_query = mysqli_query($connection, $query);
-
+    header("location:users.php?source=edit_user&edit_user={$edit_user_id}");
     verifyQry($update_user_query);
 }
 

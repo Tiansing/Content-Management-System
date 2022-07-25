@@ -25,11 +25,12 @@ if (isset($_POST['login'])) {
         $db_user_email = $row['user_email'];
         $db_user_role = $row['user_role'];
     }
-
+    $password = crypt($password, $db_user_password);
 
     if ($username === $db_username && $password === $db_user_password) {
         $_SESSION['username'] = $db_username;
         $_SESSION['user_role'] = $db_user_role;
+        $_SESSION['cryptedpass'] = $password;
         header("Location:../admin");
     } else {
         header("Location: ../index.php");

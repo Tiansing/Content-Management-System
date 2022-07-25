@@ -38,7 +38,7 @@
                     <a href="#"><?php echo $post_title ?></a>
                 </h2>
                 <p class="lead">
-                    by <a href="index.php"><?php echo $post_author ?></a>
+                    by <a href="author.php?author=<?php echo $post_author; ?>"><?php echo $post_author ?></a>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date ?></p>
                 <hr>
@@ -62,14 +62,19 @@
                 $comment_email = $_POST['comment_email'];
                 $comment_content = $_POST['comment_content'];
 
-                $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
-                $query .= "VALUES ($comment_post_id, '{$comment_author}','{$comment_email}','{$comment_content}','Unapproved',now())";
+                if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
 
-                $create_comment_query = mysqli_query($connection, $query);
+                    $query = "INSERT INTO comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) ";
+                    $query .= "VALUES ($comment_post_id, '{$comment_author}','{$comment_email}','{$comment_content}','Unapproved',now())";
 
-                $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
-                $query .= "WHERE post_id = {$the_post_id}";
-                $update_post_comment_count = mysqli_query($connection, $query);
+                    $create_comment_query = mysqli_query($connection, $query);
+
+                    $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 ";
+                    $query .= "WHERE post_id = {$the_post_id}";
+                    $update_post_comment_count = mysqli_query($connection, $query);
+                } else {
+                    echo "<script>alert('Fields should not be empty')</script>";
+                }
             }
 
 
@@ -83,15 +88,15 @@
                 <form role="form" action="" method="POST">
                     <div class="form-group">
                         <label for="author">Author</label>
-                        <input type="text" name="comment_author" class="form-control" required>
+                        <input type="text" name="comment_author" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="comment_email" class="form-control" required>
+                        <input type="email" name="comment_email" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="comment">Comment</label>
-                        <textarea class="form-control" name="comment_content" rows="3" required></textarea>
+                        <textarea class="form-control" name="comment_content" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
                 </form>

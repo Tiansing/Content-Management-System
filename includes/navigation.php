@@ -27,6 +27,7 @@
                 <li>
                     <a href="admin">Admin</a>
                 </li>
+
                 <?php
                 if (isset($_SESSION['user_role'])) {
 
@@ -36,7 +37,9 @@
                     }
                 }
                 ?>
-
+                <li>
+                    <a href="./registration.php">Register</a>
+                </li>
 
             </ul>
         </div>
